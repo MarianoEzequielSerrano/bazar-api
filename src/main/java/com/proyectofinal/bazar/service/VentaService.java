@@ -1,5 +1,6 @@
 package com.proyectofinal.bazar.service;
 
+import com.proyectofinal.bazar.dto.DetalleVentaDTO;
 import com.proyectofinal.bazar.model.Cliente;
 import com.proyectofinal.bazar.model.Producto;
 import com.proyectofinal.bazar.model.Venta;
@@ -70,7 +71,28 @@ public class VentaService implements IVentaService{
         info = "Cantidad de ventas = " + cantidadTotal + ".\nMonto total = $" + montoTotal +".";
         return info;
     }
-    
-    
+
+    @Override
+    public DetalleVentaDTO getDetalleVentaMayor() {
+        DetalleVentaDTO detalleVenta = new DetalleVentaDTO();
+        Venta mayor = new Venta();
+        boolean esPrimera = true;
+        List<Venta> todas = this.getAll();
+        for(Venta v : todas){
+            if(esPrimera){
+                mayor = v;
+                esPrimera = false;
+            }else if (v.getTotal() > mayor.getTotal()){
+                mayor = v;
+            }
+        }
+        detalleVenta.setCodigoVenta(mayor.getCodigo_venta());
+        detalleVenta.setTotal(mayor.getTotal());
+        detalleVenta.setCantidadProductos(mayor.getListaProductos().size());
+        detalleVenta.setNombreCliente(mayor.getCliente().getNombre());
+        detalleVenta.setApellidoCliente(mayor.getCliente().getApellido());
+       
+        return detalleVenta;
+    }
     
 }

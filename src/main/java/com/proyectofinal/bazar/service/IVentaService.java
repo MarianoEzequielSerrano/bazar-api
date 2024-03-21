@@ -1,5 +1,6 @@
 package com.proyectofinal.bazar.service;
 
+import com.proyectofinal.bazar.dto.DetalleVentaDTO;
 import com.proyectofinal.bazar.model.Cliente;
 import com.proyectofinal.bazar.model.Producto;
 import com.proyectofinal.bazar.model.Venta;
@@ -15,4 +16,5 @@ public interface IVentaService {
     public void editVenta(Long id, LocalDate fechaNueva, Double totalNuevo, List<Producto> productosNuevos, Cliente clienteNuevo);
     public List<Producto> getProductoByIdVenta (Long id);
     public String getInfoVentasByDate(LocalDate fecha);
+    public DetalleVentaDTO getDetalleVentaMayor();
 }

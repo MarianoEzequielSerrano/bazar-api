@@ -1,5 +1,6 @@
 package com.proyectofinal.bazar.controller;
 
+import com.proyectofinal.bazar.dto.DetalleVentaDTO;
 import com.proyectofinal.bazar.model.Cliente;
 import com.proyectofinal.bazar.model.Producto;
 import com.proyectofinal.bazar.model.Venta;
@@ -64,5 +65,10 @@ public class VentaController {
     @GetMapping("ventas/fecha/{fecha}")
     public String traerInfoByDate (@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate fecha){
         return ventaServ.getInfoVentasByDate(fecha);
+    }
+    
+    @GetMapping("ventas/mayor_venta")
+    public DetalleVentaDTO traerDetalleVentaMayor (){
+        return ventaServ.getDetalleVentaMayor();
     }
 }
