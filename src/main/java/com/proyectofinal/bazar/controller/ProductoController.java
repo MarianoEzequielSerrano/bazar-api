@@ -2,6 +2,7 @@ package com.proyectofinal.bazar.controller;
 
 import com.proyectofinal.bazar.model.Producto;
 import com.proyectofinal.bazar.service.IProductoService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,5 +51,10 @@ public class ProductoController {
                                   @RequestParam(required = false) Double cantidad){
         productoServ.editProducto(code, nombre, marca, costo, cantidad);
         return "Producto editado exitosamente";
+    }
+    
+    @GetMapping("/productos/falta_stock")
+    public List<Producto> traerFaltantes(){
+        return productoServ.getFaltantes();
     }
 }

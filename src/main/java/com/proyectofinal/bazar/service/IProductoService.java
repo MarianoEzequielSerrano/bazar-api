@@ -10,4 +10,6 @@ public interface IProductoService {
     public Producto getProductoById(Long id);
     public void deleteProducto(Long id);
     public void editProducto(Long id, String nombreNuevo, String marcaNueva, Double costoNuevo, Double cantidadNueva);
+
+    public List<Producto> getFaltantes();
 }

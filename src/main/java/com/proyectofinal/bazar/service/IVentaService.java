@@ -13,4 +13,6 @@ public interface IVentaService {
     public Venta getVentaById(Long id);
     public void deleteVenta(Long id);
     public void editVenta(Long id, LocalDate fechaNueva, Double totalNuevo, List<Producto> productosNuevos, Cliente clienteNuevo);
+    public List<Producto> getProductoByIdVenta (Long id);
+    public String getInfoVentasByDate(LocalDate fecha);
 }

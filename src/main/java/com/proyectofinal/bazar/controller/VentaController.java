@@ -7,6 +7,7 @@ import com.proyectofinal.bazar.service.IVentaService;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,13 +46,23 @@ public class VentaController {
         return "Venta eliminada exitosamente";
     }
     
-    @PutMapping("/productos/editar/{code}")
+    @PutMapping("/ventas/editar/{code}")
     public String editarVenta (@PathVariable Long code,
-                                @RequestParam LocalDate fechaNueva,
-                                @RequestParam Double totalNuevo,
-                                @RequestParam List<Producto> productosNuevos,
-                                @RequestParam Cliente clienteNuevo){
+                                @RequestParam (required = false) LocalDate fechaNueva,
+                                @RequestParam (required = false) Double totalNuevo,
+                                @RequestParam (required = false) List<Producto> productosNuevos,
+                                @RequestParam (required = false) Cliente clienteNuevo){
         ventaServ.editVenta(code, fechaNueva, totalNuevo, productosNuevos, clienteNuevo);
         return "Venta editada exitosamente";
+    }
+    
+    @GetMapping("ventas/productos/{code}")
+    public List<Producto> traerProductos (@PathVariable Long code){
+        return ventaServ.getProductoByIdVenta(code);
+    }
+    
+    @GetMapping("ventas/fecha/{fecha}")
+    public String traerInfoByDate (@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate fecha){
+        return ventaServ.getInfoVentasByDate(fecha);
     }
 }

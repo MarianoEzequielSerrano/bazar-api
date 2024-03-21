@@ -5,6 +5,7 @@ import com.proyectofinal.bazar.model.Producto;
 import com.proyectofinal.bazar.model.Venta;
 import com.proyectofinal.bazar.repository.IVentaRepository;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,5 +48,29 @@ public class VentaService implements IVentaService{
        }
        this.saveVenta(v);
     }
+
+    @Override
+    public List<Producto> getProductoByIdVenta(Long id) {
+        Venta v = this.getVentaById(id);
+        return v.getListaProductos();
+    }
+
+    @Override
+    public String getInfoVentasByDate(LocalDate fecha) {
+        List<Venta> todas = this.getAll();
+        Double montoTotal = 0.0;
+        int cantidadTotal = 0;
+        String info = "";
+        for(Venta v: todas){
+            if(v.getFecha_venta().equals(fecha)){
+                montoTotal += v.getTotal();
+                cantidadTotal++;
+            }
+        }
+        info = "Cantidad de ventas = " + cantidadTotal + ".\nMonto total = $" + montoTotal +".";
+        return info;
+    }
+    
+    
     
 }
